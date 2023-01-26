@@ -1,6 +1,8 @@
 const morgan = require("morgan");
 const express = require('express');
 const layout = require('./views/layout');
+const wikiRouter = require('./routes/wiki');
+const usersRouter = require('./routes/users');
 const { db, Page, User } = require('./models');
 
 const app = express();
@@ -14,6 +16,8 @@ app.get("/", (req, res) => {
   })
 
 app.use("/", require("./views/layout"));
+app.use("/wiki", wikiRouter);
+app.use("/users", usersRouter);
 
 db.authenticate()
   .then(()=> {
